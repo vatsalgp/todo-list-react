@@ -2,15 +2,15 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { fetchStreams } from "../../Actions"
+import { fetchtodos } from "../../Actions"
 
-class StreamList extends React.Component {
+class todoList extends React.Component {
     componentDidMount() {
-        this.props.fetchStreams();
+        this.props.fetchtodos();
     }
 
-    renderAdmin = (id, stream) => {
-        if (this.props.isSignedIn && stream.userId === this.props.currentUserId) {
+    renderAdmin = (id, todo) => {
+        if (this.props.isSignedIn && todo.userId === this.props.currentUserId) {
             return (
                 <div className="right floated button">
                     <Link to={"/edit/" + id} className="ui button primary">EDIT</Link>
@@ -25,11 +25,11 @@ class StreamList extends React.Component {
             return (
                 <div className="item" key={key}>
                     {this.renderAdmin(key, val)}
-                    <i className="large middle aligned icon camera" />
+                    <i className="large middle aligned icon book" />
                     <div className="content">
-                        <Link to={"/" + key} className="header">
+                        <div className="header">
                             {val.title}
-                        </Link>
+                        </div>
                         <div className="description">
                             {val.description}
                         </div>
@@ -41,8 +41,8 @@ class StreamList extends React.Component {
 
     renderList() {
         const list = [];
-        for (const key in this.props.streams) {
-            list.push(this.renderItem(key, this.props.streams[key]))
+        for (const key in this.props.todos) {
+            list.push(this.renderItem(key, this.props.todos[key]))
         }
         return list;
     }
@@ -52,7 +52,7 @@ class StreamList extends React.Component {
             return (
                 <div style={{ textAlign: "right" }}>
                     <Link to="/new" className="ui button primary">
-                        Create Stream
+                        Create todo
                     </Link>
                 </div>
             );
@@ -62,7 +62,7 @@ class StreamList extends React.Component {
     render() {
         return (
             <div>
-                <h2>Streams</h2>
+                <h2>Todos</h2>
                 <div className="ui celled list">{this.renderList()}</div>
                 {this.renderCreate()}
             </div>
@@ -72,10 +72,10 @@ class StreamList extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        streams: state.streams,
+        todos: state.todos,
         currentUserId: state.auth.userId,
         isSignedIn: state.auth.isSignedIn
     };
 }
 
-export default connect(mapStateToProps, { fetchStreams })(StreamList);
+export default connect(mapStateToProps, { fetchtodos })(todoList);

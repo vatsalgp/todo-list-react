@@ -4,19 +4,19 @@ import { Link } from "react-router-dom";
 
 import Modal from "../Modal";
 import history from "../../history";
-import { fetchStream, deleteStream } from "../../Actions";
+import { fetchtodo, deletetodo } from "../../Actions";
 
-class StreamDelete extends React.Component {
+class todoDelete extends React.Component {
 
     componentDidMount() {
-        this.props.fetchStream(this.props.match.params.id);
+        this.props.fetchtodo(this.props.match.params.id);
     }
 
     renderDelete() {
         return (
             <button
                 className="ui button negative"
-                onClick={() => this.props.deleteStream(this.props.match.params.id)}//
+                onClick={() => this.props.deletetodo(this.props.match.params.id)}//
             >Delete</button>
         );
     }
@@ -35,20 +35,20 @@ class StreamDelete extends React.Component {
     }
 
     renderContent() {
-        if (!this.props.stream) {
-            return "Are you sure you want to delete this stream ?";
+        if (!this.props.todo) {
+            return "Are you sure you want to delete this todo ?";
         } else {
-            return "Are you sure you want to delete the stream with title: " + this.props.stream.title + " ?";
+            return "Are you sure you want to delete the todo with title: " + this.props.todo.title + " ?";
         }
     }
 
     render() {
-        if (!this.props.stream) {
+        if (!this.props.todo) {
             return <div>Loading...</div>;
-        } else if (this.props.isSignedIn && this.props.stream.userId === this.props.currentUserId) {
+        } else if (this.props.isSignedIn && this.props.todo.userId === this.props.currentUserId) {
             return (
                 < Modal
-                    title="Delete Stream"
+                    title="Delete todo"
                     content={this.renderContent()}
                     actions={this.renderActions()}
                     onDismiss={() => history.push("/")}
@@ -57,8 +57,8 @@ class StreamDelete extends React.Component {
         } else {
             return (
                 < Modal
-                    title="Delete Stream"
-                    content={"You don't have access to delete this Stream"}
+                    title="Delete todo"
+                    content={"You don't have access to delete this todo"}
                     actions={this.renderCancel()}
                     onDismiss={() => history.push("/")}
                 />
@@ -69,10 +69,10 @@ class StreamDelete extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        stream: state.streams[ownProps.match.params.id],
+        todo: state.todos[ownProps.match.params.id],
         currentUserId: state.auth.userId,
         isSignedIn: state.auth.isSignedIn
     };
 }
 
-export default connect(mapStateToProps, { fetchStream, deleteStream })(StreamDelete);
+export default connect(mapStateToProps, { fetchtodo, deletetodo })(todoDelete);

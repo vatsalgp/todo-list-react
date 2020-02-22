@@ -9,7 +9,7 @@ const INITIAL_STATE = {
 const omit = (obj, prop) => {
     const output = {};
     for (const key in obj) {
-        if (key != prop) {
+        if (key !== prop) {
             output[key] = obj[key];
         }
     }
@@ -27,16 +27,16 @@ const authReducer = (state = INITIAL_STATE, action) => {
     }
 };
 
-const streamReducer = (state = {}, action) => {
+const todoReducer = (state = {}, action) => {
     switch (action.type) {
-        case "CREATE_STREAM":
+        case "CREATE_TODO":
             return { ...state };
-        case "FETCH_STREAM":
-        case "EDIT_STREAM":
-            return { ...state, [action.payload.id]: action.payload.stream };
-        case "DELETE_STREAM":
+        case "FETCH_TODO":
+        case "EDIT_TODO":
+            return { ...state, [action.payload.id]: action.payload.todo };
+        case "DELETE_TODO":
             return omit(state, action.payload)
-        case "FETCH_STREAMS":
+        case "FETCH_TODOS":
             return { ...state, ...action.payload };
         default:
             return state;
@@ -46,5 +46,5 @@ const streamReducer = (state = {}, action) => {
 export default combineReducers({
     auth: authReducer,
     form: formReducer,
-    streams: streamReducer
+    todos: todoReducer
 });

@@ -1,12 +1,11 @@
 import React from "react";
-import { Router, Route, Switch } from "react-router-dom";
+import { Router, Route } from "react-router-dom";
 
 import Header from "./Header";
-import StreamCreate from "./Streams/StreamCreate";
-import StreamEdit from "./Streams/StreamEdit";
-import StreamDelete from "./Streams/StreamDelete";
-import StreamShow from "./Streams/StreamShow";
-import StreamList from "./Streams/StreamList";
+import TodoCreate from "./Todos/TodoCreate";
+import TodoEdit from "./Todos/TodoEdit";
+import TodoDelete from "./Todos/TodoDelete";
+import TodoList from "./Todos/TodoList";
 import history from "../history";
 
 const App = () => {
@@ -15,13 +14,10 @@ const App = () => {
             <Router history={history}>
                 <div>
                     <Header />
-                    <Switch>
-                        <Route path="/" exact component={StreamList} />
-                        <Route path="/new" exact component={StreamCreate} />
-                        <Route path="/edit/:id" exact component={StreamEdit} />
-                        <Route path="/delete/:id" exact component={StreamDelete} />
-                        <Route path="/:id" exact component={StreamShow} />
-                    </Switch>
+                    <Route path="/" exact component={TodoList} />
+                    <Route path="/new" exact component={TodoCreate} />
+                    <Route path="/edit/:id" exact component={TodoEdit} />
+                    <Route path="/delete/:id" exact component={TodoDelete} />
                 </div>
             </Router>
         </div>

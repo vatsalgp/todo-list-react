@@ -1,4 +1,4 @@
-import streams from "../apis/streams";
+import todos from "../apis/todos";
 import history from "../history";
 
 export const signIn = id => {
@@ -14,45 +14,45 @@ export const signOut = () => {
     };
 };
 
-export const fetchStreams = () => async dispatch => {
-    const response = await streams.get("/streams" + ".json");
+export const fetchtodos = () => async dispatch => {
+    const response = await todos.get("/todos.json");
     dispatch({
-        type: "FETCH_STREAMS",
+        type: "FETCH_TODOS",
         payload: response.data
     });
 };
 
-export const fetchStream = id => async dispatch => {
-    const response = await streams.get("/streams/" + id + ".json");
+export const fetchtodo = id => async dispatch => {
+    const response = await todos.get("/todos/" + id + ".json");
     dispatch({
-        type: "FETCH_STREAM",
-        payload: { id, stream: response.data }
+        type: "FETCH_TODO",
+        payload: { id, todo: response.data }
     });
 };
 
-export const createStream = formValues => async (dispatch, getState) => {
+export const createtodo = formValues => async (dispatch, getState) => {
     const { userId } = getState().auth;
-    const response = await streams.post("/streams" + ".json", { ...formValues, userId });
+    const response = await todos.post("/todos.json", { ...formValues, userId });
     dispatch({
-        type: "CREATE_STREAM",
+        type: "CREATE_TODO",
         payload: response.data.name
     });
     history.push("/");
 };
 
-export const editStream = (id, formValues) => async dispatch => {
-    const response = await streams.patch("/streams/" + id + ".json", formValues);
+export const edittodo = (id, formValues) => async dispatch => {
+    const response = await todos.patch("/todos/" + id + ".json", formValues);
     dispatch({
-        type: "EDIT_STREAM",
-        payload: { id, stream: response.data }
+        type: "EDIT_TODO",
+        payload: { id, todo: response.data }
     });
     history.push("/");
 };
 
-export const deleteStream = id => async dispatch => {
-    await streams.delete("/streams/" + id + ".json");
+export const deletetodo = id => async dispatch => {
+    await todos.delete("/todos/" + id + ".json");
     dispatch({
-        type: "DELETE_STREAM",
+        type: "DELETE_TODO",
         payload: id
     });
     history.push("/");

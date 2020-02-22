@@ -7,7 +7,7 @@ const Header = () => {
     return (
         <div className="ui secondary pointing menu">
             <Link to="/" className="item ui header">
-                Streams
+                Todos
             </Link>
             <div className="right menu" style={{ margin: "auto 0" }}>
                 <GoogleAuth />
