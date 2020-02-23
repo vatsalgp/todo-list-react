@@ -4,19 +4,19 @@ import { Link } from "react-router-dom";
 
 import Modal from "../Modal";
 import history from "../../history";
-import { fetchtodo, deletetodo } from "../../Actions";
+import { fetchTodo, deleteTodo } from "../../Actions";
 
 class todoDelete extends React.Component {
 
     componentDidMount() {
-        this.props.fetchtodo(this.props.match.params.id);
+        this.props.fetchTodo(this.props.match.params.id);
     }
 
     renderDelete() {
         return (
             <button
                 className="ui button negative"
-                onClick={() => this.props.deletetodo(this.props.match.params.id)}//
+                onClick={() => this.props.deleteTodo(this.props.match.params.id)}//
             >Delete</button>
         );
     }
@@ -75,4 +75,4 @@ const mapStateToProps = (state, ownProps) => {
     };
 }
 
-export default connect(mapStateToProps, { fetchtodo, deletetodo })(todoDelete);
+export default connect(mapStateToProps, { fetchTodo, deleteTodo })(todoDelete);

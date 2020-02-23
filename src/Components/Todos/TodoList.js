@@ -2,11 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { fetchtodos } from "../../Actions"
+import { fetchTodos } from "../../Actions"
 
 class todoList extends React.Component {
     componentDidMount() {
-        this.props.fetchtodos();
+        this.props.fetchTodos();
     }
 
     renderAdmin = (id, todo) => {
@@ -25,13 +25,17 @@ class todoList extends React.Component {
             return (
                 <div className="item" key={key}>
                     {this.renderAdmin(key, val)}
-                    <i className="large middle aligned icon book" />
+                    <i className="big middle aligned icon book" />
                     <div className="content">
                         <div className="header">
                             {val.title}
                         </div>
                         <div className="description">
-                            {val.description}
+                            <span>{val.description}</span>
+                            <div className="user">
+                                <i className="user icon outline" />
+                                {val.userName}
+                            </div>
                         </div>
                     </div>
                 </div >
@@ -78,4 +82,4 @@ const mapStateToProps = state => {
     };
 }
 
-export default connect(mapStateToProps, { fetchtodos })(todoList);
+export default connect(mapStateToProps, { fetchTodos })(todoList);

@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import TodoForm from "./TodoForm";
-import { createtodo } from "../../Actions";
+import { createTodo } from "../../Actions";
 
 class todoCreate extends React.Component {
     render = () => {
@@ -10,7 +10,7 @@ class todoCreate extends React.Component {
             return (
                 <div>
                     <h3>Create a todo</h3>
-                    <TodoForm onSubmit={this.props.createtodo} />
+                    <TodoForm onSubmit={this.props.createTodo} />
                 </div>
             );
         }
@@ -26,4 +26,4 @@ const mapStateToProps = state => {
     };
 }
 
-export default connect(mapStateToProps, { createtodo })(todoCreate);
+export default connect(mapStateToProps, { createTodo })(todoCreate);

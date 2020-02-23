@@ -19,9 +19,9 @@ const omit = (obj, prop) => {
 const authReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case "SIGN_IN":
-            return { ...INITIAL_STATE, isSignedIn: true, userId: action.payload };
+            return { ...INITIAL_STATE, isSignedIn: true, userId: action.payload.id, userName: action.payload.userName };
         case "SIGN_OUT":
-            return { ...INITIAL_STATE, isSignedIn: false, userId: null };
+            return { ...INITIAL_STATE, isSignedIn: false, userId: null, userName: null };
         default:
             return state;
     }

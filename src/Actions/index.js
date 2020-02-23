@@ -1,10 +1,13 @@
 import todos from "../apis/todos";
 import history from "../history";
 
-export const signIn = id => {
+export const signIn = (id, userName) => {
     return {
         type: "SIGN_IN",
-        payload: id
+        payload: {
+            id,
+            userName
+        }
     };
 };
 
@@ -14,7 +17,7 @@ export const signOut = () => {
     };
 };
 
-export const fetchtodos = () => async dispatch => {
+export const fetchTodos = () => async dispatch => {
     const response = await todos.get("/todos.json");
     dispatch({
         type: "FETCH_TODOS",
@@ -22,7 +25,7 @@ export const fetchtodos = () => async dispatch => {
     });
 };
 
-export const fetchtodo = id => async dispatch => {
+export const fetchTodo = id => async dispatch => {
     const response = await todos.get("/todos/" + id + ".json");
     dispatch({
         type: "FETCH_TODO",
@@ -30,9 +33,9 @@ export const fetchtodo = id => async dispatch => {
     });
 };
 
-export const createtodo = formValues => async (dispatch, getState) => {
-    const { userId } = getState().auth;
-    const response = await todos.post("/todos.json", { ...formValues, userId });
+export const createTodo = formValues => async (dispatch, getState) => {
+    const { userId, userName } = getState().auth;
+    const response = await todos.post("/todos.json", { ...formValues, userId, userName });
     dispatch({
         type: "CREATE_TODO",
         payload: response.data.name
@@ -40,7 +43,7 @@ export const createtodo = formValues => async (dispatch, getState) => {
     history.push("/");
 };
 
-export const edittodo = (id, formValues) => async dispatch => {
+export const editTodo = (id, formValues) => async dispatch => {
     const response = await todos.patch("/todos/" + id + ".json", formValues);
     dispatch({
         type: "EDIT_TODO",
@@ -49,7 +52,7 @@ export const edittodo = (id, formValues) => async dispatch => {
     history.push("/");
 };
 
-export const deletetodo = id => async dispatch => {
+export const deleteTodo = id => async dispatch => {
     await todos.delete("/todos/" + id + ".json");
     dispatch({
         type: "DELETE_TODO",
