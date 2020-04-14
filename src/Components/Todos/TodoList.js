@@ -34,7 +34,7 @@ class todoList extends React.Component {
                             <span>{val.description}</span>
                             <div className="user">
                                 <i className="user icon outline" />
-                                {val.userName}
+                                {val.name}
                             </div>
                         </div>
                     </div>

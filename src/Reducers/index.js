@@ -3,25 +3,30 @@ import { reducer as formReducer } from "redux-form";
 
 const INITIAL_STATE = {
     isSignedIn: null,
-    userId: null
+    uid: null,
+    name: null
 };
 
-const omit = (obj, prop) => {
-    const output = {};
-    for (const key in obj) {
-        if (key !== prop) {
-            output[key] = obj[key];
-        }
-    }
-    return output;
-}
-
 const authReducer = (state = INITIAL_STATE, action) => {
+    let auth;
     switch (action.type) {
         case "SIGN_IN":
-            return { ...INITIAL_STATE, isSignedIn: true, userId: action.payload.id, userName: action.payload.userName };
+            auth = {
+                isSignedIn: true,
+                uid: action.payload.uid,
+                name: action.payload.name
+            };
+            window.localStorage.setItem("auth", JSON.stringify(auth));
+            return { ...INITIAL_STATE, ...auth };
         case "SIGN_OUT":
-            return { ...INITIAL_STATE, isSignedIn: false, userId: null, userName: null };
+            auth = {
+                isSignedIn: false,
+                uid: null,
+                name: null
+            };
+            window.localStorage.setItem("auth", JSON.stringify(auth));
+
+            return { ...INITIAL_STATE, ...auth };
         default:
             return state;
     }
@@ -31,13 +36,14 @@ const todoReducer = (state = {}, action) => {
     switch (action.type) {
         case "CREATE_TODO":
             return { ...state };
-        case "FETCH_TODO":
-        case "EDIT_TODO":
-            return { ...state, [action.payload.id]: action.payload.todo };
-        case "DELETE_TODO":
-            return omit(state, action.payload)
         case "FETCH_TODOS":
+        case "FETCH_TODO":
             return { ...state, ...action.payload };
+        case "EDIT_TODO":
+            return { ...state };
+        case "DELETE_TODO":
+            delete state[action.payload];
+            return { ...state }
         default:
             return state;
     }

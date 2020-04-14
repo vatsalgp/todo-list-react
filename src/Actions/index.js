@@ -1,12 +1,12 @@
-import todos from "../apis/todos";
 import history from "../history";
+import { create, get, getAll, remove, update } from "../firebase";
 
-export const signIn = (id, userName) => {
+export const signIn = (uid, name) => {
     return {
         type: "SIGN_IN",
         payload: {
-            id,
-            userName
+            uid,
+            name
         }
     };
 };
@@ -18,45 +18,43 @@ export const signOut = () => {
 };
 
 export const fetchTodos = () => async dispatch => {
-    const response = await todos.get("/todos.json");
+    const todos = await getAll();
     dispatch({
         type: "FETCH_TODOS",
-        payload: response.data
+        payload: todos
     });
 };
 
 export const fetchTodo = id => async dispatch => {
-    const response = await todos.get("/todos/" + id + ".json");
+    const todo = await get(id);
     dispatch({
         type: "FETCH_TODO",
-        payload: { id, todo: response.data }
+        payload: todo
     });
 };
 
-export const createTodo = formValues => async (dispatch, getState) => {
-    const { userId, userName } = getState().auth;
-    const response = await todos.post("/todos.json", { ...formValues, userId, userName });
+export const createTodo = form => async (dispatch, getState) => {
+    const { uid, name } = getState().auth;
+    create(uid, name, form);
     dispatch({
         type: "CREATE_TODO",
-        payload: response.data.name
     });
     history.push("/");
 };
 
-export const editTodo = (id, formValues) => async dispatch => {
-    const response = await todos.patch("/todos/" + id + ".json", formValues);
-    dispatch({
+export const editTodo = (id, formValues) => {
+    update(id, formValues);
+    history.push("/");
+    return {
         type: "EDIT_TODO",
-        payload: { id, todo: response.data }
-    });
-    history.push("/");
+    };
 };
 
-export const deleteTodo = id => async dispatch => {
-    await todos.delete("/todos/" + id + ".json");
-    dispatch({
+export const deleteTodo = id => {
+    remove(id);
+    history.push("/");
+    return {
         type: "DELETE_TODO",
         payload: id
-    });
-    history.push("/");
-};
+    };
+}
