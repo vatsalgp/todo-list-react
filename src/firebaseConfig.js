@@ -5,7 +5,8 @@ const firebaseConfig = {
     projectId: "todo-list-3410d",
     storageBucket: "todo-list-3410d.appspot.com",
     messagingSenderId: "642124068599",
-    appId: "1:642124068599:web:0154e1991a613051d6c5f2"
+    appId: "1:642124068599:web:0154e1991a613051d6c5f2",
+    measurementId: "G-7E0EEB073E"
 };
 
 export default firebaseConfig;

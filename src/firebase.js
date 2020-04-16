@@ -1,10 +1,12 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
+import "firebase/analytics";
 
 import firebaseConfig from "./firebaseConfig";
 
 firebase.initializeApp(firebaseConfig);
+firebase.analytics();
 
 const db = firebase.firestore();
 const todos = db.collection("todos");
