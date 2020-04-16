@@ -34,11 +34,10 @@ const authReducer = (state = INITIAL_STATE, action) => {
 
 const todoReducer = (state = {}, action) => {
     switch (action.type) {
-        case "CREATE_TODO":
-            return { ...state };
         case "FETCH_TODOS":
         case "FETCH_TODO":
             return { ...state, ...action.payload };
+        case "CREATE_TODO":
         case "EDIT_TODO":
             return { ...state };
         case "DELETE_TODO":

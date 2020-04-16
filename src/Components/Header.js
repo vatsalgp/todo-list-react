@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import GoogleAuth from "./GoogleAuth";
+import SignButton from "./SignButton";
 
 const Header = () => {
     return (
@@ -10,7 +10,7 @@ const Header = () => {
                 Todos
             </Link>
             <div className="right menu" style={{ margin: "auto 0" }}>
-                <GoogleAuth />
+                <SignButton />
             </div>
         </div>
     );
