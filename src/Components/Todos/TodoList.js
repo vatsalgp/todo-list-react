@@ -10,7 +10,7 @@ class todoList extends React.Component {
     }
 
     renderAdmin = (id, todo) => {
-        if (this.props.isSignedIn && todo.userId === this.props.currentUserId) {
+        if (this.props.isSignedIn && todo.uid === this.props.uid) {
             return (
                 <div className="right floated button">
                     <Link to={"/edit/" + id} className="ui button primary">EDIT</Link>
@@ -34,7 +34,7 @@ class todoList extends React.Component {
                             <span>{val.description}</span>
                             <div className="user">
                                 <i className="user icon outline" />
-                                {val.name}
+                                {val.name.split(" ")[0]}
                             </div>
                         </div>
                     </div>
@@ -77,7 +77,7 @@ class todoList extends React.Component {
 const mapStateToProps = state => {
     return {
         todos: state.todos,
-        currentUserId: state.auth.userId,
+        uid: state.auth.uid,
         isSignedIn: state.auth.isSignedIn
     };
 }

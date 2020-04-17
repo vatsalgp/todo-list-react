@@ -45,7 +45,7 @@ class todoDelete extends React.Component {
     render() {
         if (!this.props.todo) {
             return <div>Loading...</div>;
-        } else if (this.props.isSignedIn && this.props.todo.userId === this.props.currentUserId) {
+        } else if (this.props.isSignedIn && this.props.todo.uid === this.props.uid) {
             return (
                 < Modal
                     title="Delete todo"
@@ -70,7 +70,7 @@ class todoDelete extends React.Component {
 const mapStateToProps = (state, ownProps) => {
     return {
         todo: state.todos[ownProps.match.params.id],
-        currentUserId: state.auth.userId,
+        uid: state.auth.uid,
         isSignedIn: state.auth.isSignedIn
     };
 }
