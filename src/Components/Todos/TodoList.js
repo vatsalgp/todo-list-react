@@ -46,7 +46,6 @@ class todoList extends React.Component {
     }
 
     renderList() {
-
         const list = [];
         for (const key in this.props.todos) {
             list.push(this.renderItem(key, this.props.todos[key]))
@@ -67,13 +66,18 @@ class todoList extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                <h2>Todos</h2>
-                <div className="ui celled list">{this.renderList()}</div>
-                {this.renderCreate()}
-            </div>
-        );
+        if (this.props.isSignedIn)
+            return (
+                <div>
+                    <h2>Todos</h2>
+                    <div className="ui celled list">{this.renderList()}</div>
+                    {this.renderCreate()}
+                </div>
+            );
+        else
+            return (
+                <h1 className="ui huge header">Sign In to view your Todos</h1>
+            );
     }
 }
 
