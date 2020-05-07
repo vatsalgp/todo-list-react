@@ -6,7 +6,9 @@ import { fetchTodos } from "../../Actions"
 
 class todoList extends React.Component {
     componentDidMount() {
-        this.props.fetchTodos();
+        if (this.props.isSignedIn) {
+            this.props.fetchTodos();
+        }
     }
 
     renderAdmin = (id, todo) => {
@@ -44,6 +46,7 @@ class todoList extends React.Component {
     }
 
     renderList() {
+
         const list = [];
         for (const key in this.props.todos) {
             list.push(this.renderItem(key, this.props.todos[key]))

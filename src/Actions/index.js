@@ -61,3 +61,9 @@ export const deleteTodo = id => {
         payload: id
     };
 }
+
+export const clearTodos = () => {
+    return {
+        type: "CLEAR_TODOS"
+    };
+}

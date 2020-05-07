@@ -42,7 +42,9 @@ const todoReducer = (state = {}, action) => {
             return { ...state };
         case "DELETE_TODO":
             delete state[action.payload];
-            return { ...state }
+            return { ...state };
+        case "CLEAR_TODOS":
+            return {};
         default:
             return state;
     }
