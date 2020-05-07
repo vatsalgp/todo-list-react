@@ -2,9 +2,8 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /todos/{todo} {
-      allow list: if true;
-      allow create, get: if request.auth.uid != null;
-      allow update, delete: if request.auth.uid == resource.data.uid;
+      allow create: if request.auth.uid != null;
+      allow update, delete, read: if request.auth.uid == resource.data.uid;
     }
   }
 }

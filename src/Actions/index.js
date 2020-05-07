@@ -19,8 +19,9 @@ export const signOut = () => {
     };
 };
 
-export const fetchTodos = () => async dispatch => {
-    const todos = await firebase.getAll();
+export const fetchTodos = () => async (dispatch, getState) => {
+    const { uid } = getState().auth;
+    const todos = await firebase.getAll(uid);
     dispatch({
         type: "FETCH_TODOS",
         payload: todos

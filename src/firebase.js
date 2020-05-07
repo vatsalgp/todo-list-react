@@ -25,9 +25,9 @@ export const get = async id => {
     const doc = await todos.doc(id).get();
     return { [id]: { ...doc.data() } };
 };
-export const getAll = async () => {
+export const getAll = async uid => {
     const output = {};
-    const snapshot = await todos.get();
+    const snapshot = await todos.where("uid", "==", uid).get();
     snapshot.forEach(doc => output[doc.id] = doc.data());
     return output;
 };
