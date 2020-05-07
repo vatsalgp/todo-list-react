@@ -14,6 +14,7 @@ export const signIn = () => async dispatch => {
 
 export const signOut = () => {
     firebase.signOut();
+    history.push("/");
     return {
         type: "SIGN_OUT",
     };
